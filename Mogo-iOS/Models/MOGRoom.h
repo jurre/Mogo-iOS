@@ -11,5 +11,6 @@
 @interface MOGRoom : NSObject
 
 @property (nonatomic, copy) NSString *name;
+@property (nonatomic) NSInteger roomId;
 
 @end

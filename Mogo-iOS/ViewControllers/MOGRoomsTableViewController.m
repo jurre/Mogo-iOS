@@ -8,9 +8,10 @@
 
 #import "MOGRoomsTableViewController.h"
 #import "MOGRoom.h"
-
+#import "MOGChatViewController.h"
 
 static NSString *MOGRoomCellIdentifier = @"MOGRoomCell";
+static NSString *MOGSegueIdentifierOpenRoom = @"MOGSegueIdentifierOpenRoom";
 
 @interface MOGRoomsTableViewController()
 
@@ -43,9 +44,11 @@ static NSString *MOGRoomCellIdentifier = @"MOGRoomCell";
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [self.roomService roomsWithCompletion:^(NSArray *result) {
         self.rooms = result;
         [self.tableView reloadData];
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     } failure:^(NSError *error) {
         //
     }];
@@ -63,6 +66,14 @@ static NSString *MOGRoomCellIdentifier = @"MOGRoomCell";
     cell.textLabel.text = room.name;
 
     return cell;
+}
+
+#pragma mark -
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:MOGSegueIdentifierOpenRoom]) {
+        ((MOGChatViewController *)segue.destinationViewController).room = self.rooms[[self.tableView indexPathForSelectedRow].row];
+    }
 }
 
 @end

@@ -43,9 +43,10 @@
     for (NSDictionary *jsonRoom in jsonArray) {
         MOGRoom *room = [[MOGRoom alloc] init];
         room.name = jsonRoom[@"name"];
+        room.roomId = [jsonRoom[@"id"] integerValue];
         [rooms addObject:room];
     }
-    return rooms;
+    return [NSArray arrayWithArray:rooms];
 }
 
 @end

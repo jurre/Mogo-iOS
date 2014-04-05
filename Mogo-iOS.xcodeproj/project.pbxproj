@@ -24,6 +24,10 @@
 		0727EF7B18E3916A0023F2BE /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0727EF7A18E3916A0023F2BE /* Storyboard.storyboard */; };
 		0727EF7E18E398870023F2BE /* MOGRoomsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0727EF7D18E398870023F2BE /* MOGRoomsTableViewController.m */; };
 		073191D218E3A6A5003107B6 /* MOGRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 073191D118E3A6A5003107B6 /* MOGRoom.m */; };
+		073191D518E41BDF003107B6 /* MOGChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 073191D418E41BDF003107B6 /* MOGChatViewController.m */; };
+		0795D10118E839DC006670C3 /* MOGMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0795D10018E839DC006670C3 /* MOGMessage.m */; };
+		0795D10418E83B6E006670C3 /* MOGMessageService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0795D10318E83B6E006670C3 /* MOGMessageService.m */; };
+		0795D10818E8721F006670C3 /* MOGAvatarFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0795D10718E8721F006670C3 /* MOGAvatarFactory.m */; };
 		3B836B528D0C44BF95A800AF /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F69626033574422A44E44A5 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -42,7 +46,7 @@
 		0727EF3B18E3880A0023F2BE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0727EF3D18E3880A0023F2BE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		0727EF3F18E3880A0023F2BE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		0727EF4218E3880A0023F2BE /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = "<group>"; };
+		0727EF4218E3880A0023F2BE /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		0727EF4518E3880A0023F2BE /* Mogo-iOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mogo-iOS-Prefix.pch"; sourceTree = "<group>"; };
 		0727EF4718E3880A0023F2BE /* MOGAPIClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MOGAPIClient.h; path = Networking/MOGAPIClient.h; sourceTree = "<group>"; };
 		0727EF4818E3880A0023F2BE /* MOGAPIClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MOGAPIClient.m; path = Networking/MOGAPIClient.m; sourceTree = "<group>"; };
@@ -63,6 +67,14 @@
 		0727EF7D18E398870023F2BE /* MOGRoomsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MOGRoomsTableViewController.m; path = ViewControllers/MOGRoomsTableViewController.m; sourceTree = "<group>"; };
 		073191D018E3A6A5003107B6 /* MOGRoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MOGRoom.h; path = Models/MOGRoom.h; sourceTree = "<group>"; };
 		073191D118E3A6A5003107B6 /* MOGRoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MOGRoom.m; path = Models/MOGRoom.m; sourceTree = "<group>"; };
+		073191D318E41BDF003107B6 /* MOGChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MOGChatViewController.h; path = ViewControllers/MOGChatViewController.h; sourceTree = "<group>"; };
+		073191D418E41BDF003107B6 /* MOGChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MOGChatViewController.m; path = ViewControllers/MOGChatViewController.m; sourceTree = "<group>"; };
+		0795D0FF18E839DC006670C3 /* MOGMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MOGMessage.h; path = Models/MOGMessage.h; sourceTree = "<group>"; };
+		0795D10018E839DC006670C3 /* MOGMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MOGMessage.m; path = Models/MOGMessage.m; sourceTree = "<group>"; };
+		0795D10218E83B6E006670C3 /* MOGMessageService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MOGMessageService.h; path = Networking/MOGMessageService.h; sourceTree = "<group>"; };
+		0795D10318E83B6E006670C3 /* MOGMessageService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MOGMessageService.m; path = Networking/MOGMessageService.m; sourceTree = "<group>"; };
+		0795D10618E8721F006670C3 /* MOGAvatarFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MOGAvatarFactory.h; path = Views/MOGAvatarFactory.h; sourceTree = "<group>"; };
+		0795D10718E8721F006670C3 /* MOGAvatarFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MOGAvatarFactory.m; path = Views/MOGAvatarFactory.m; sourceTree = "<group>"; };
 		8F69626033574422A44E44A5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		94F6D6A1E34249C8A5A2EEC1 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -126,6 +138,7 @@
 		0727EF4118E3880A0023F2BE /* Mogo-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				0795D10518E87201006670C3 /* Views */,
 				073191CF18E3A68E003107B6 /* Models */,
 				0727EF7618E390FE0023F2BE /* ViewControllers */,
 				0727EF4218E3880A0023F2BE /* Podfile */,
@@ -157,6 +170,8 @@
 				0727EF4818E3880A0023F2BE /* MOGAPIClient.m */,
 				0727EF7318E38F390023F2BE /* MOGRoomService.h */,
 				0727EF7418E38F390023F2BE /* MOGRoomService.m */,
+				0795D10218E83B6E006670C3 /* MOGMessageService.h */,
+				0795D10318E83B6E006670C3 /* MOGMessageService.m */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -168,6 +183,8 @@
 				0727EF7818E391270023F2BE /* MOGLoginViewController.m */,
 				0727EF7C18E398870023F2BE /* MOGRoomsTableViewController.h */,
 				0727EF7D18E398870023F2BE /* MOGRoomsTableViewController.m */,
+				073191D318E41BDF003107B6 /* MOGChatViewController.h */,
+				073191D418E41BDF003107B6 /* MOGChatViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -177,8 +194,19 @@
 			children = (
 				073191D018E3A6A5003107B6 /* MOGRoom.h */,
 				073191D118E3A6A5003107B6 /* MOGRoom.m */,
+				0795D0FF18E839DC006670C3 /* MOGMessage.h */,
+				0795D10018E839DC006670C3 /* MOGMessage.m */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		0795D10518E87201006670C3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0795D10618E8721F006670C3 /* MOGAvatarFactory.h */,
+				0795D10718E8721F006670C3 /* MOGAvatarFactory.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -314,11 +342,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				0727EF7E18E398870023F2BE /* MOGRoomsTableViewController.m in Sources */,
+				0795D10818E8721F006670C3 /* MOGAvatarFactory.m in Sources */,
 				0727EF7518E38F390023F2BE /* MOGRoomService.m in Sources */,
 				0727EF4F18E3880A0023F2BE /* main.m in Sources */,
+				0795D10418E83B6E006670C3 /* MOGMessageService.m in Sources */,
 				0727EF4918E3880A0023F2BE /* MOGAPIClient.m in Sources */,
+				073191D518E41BDF003107B6 /* MOGChatViewController.m in Sources */,
 				073191D218E3A6A5003107B6 /* MOGRoom.m in Sources */,
 				0727EF7918E391270023F2BE /* MOGLoginViewController.m in Sources */,
+				0795D10118E839DC006670C3 /* MOGMessage.m in Sources */,
 				0727EF5218E3880A0023F2BE /* MOGAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

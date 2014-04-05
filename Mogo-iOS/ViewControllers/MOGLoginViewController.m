@@ -8,7 +8,7 @@
 
 #import "MOGLoginViewController.h"
 
-static NSString *const MOGSegueSignIn = @"MOGSignInSegue";
+static NSString *const MOGSegueIdentifierSignIn = @"MOGSignInSegue";
 
 @implementation MOGLoginViewController
 
@@ -22,7 +22,7 @@ static NSString *const MOGSegueSignIn = @"MOGSignInSegue";
 - (IBAction)signInButtonTapped:(id)sender {
 	NSString *authToken = self.authTokenTextField.text;
 	self.apiClient.authToken = authToken;
-	[self performSegueWithIdentifier:MOGSegueSignIn sender:self];
+	[self performSegueWithIdentifier:MOGSegueIdentifierSignIn sender:self];
 }
 
 @end

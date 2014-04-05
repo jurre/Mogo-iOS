@@ -1,3 +1,5 @@
 platform :ios, "7.0"
 pod "AFNetworking"
-pod "AMBubbleTableViewController"
+pod "JSMessagesViewController"
+pod "TransformerKit"
+pod "Hashtel", git: "git@github.com:jurre/hashtel-objc.git"
