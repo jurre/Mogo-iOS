@@ -39,11 +39,15 @@
     [[MOGMessageService sharedService] messagesForRoom:self.room
                                             completion:^(NSArray *result) {
                                                 self.messages = result;
-                                                [self.tableView reloadData];
-                                                [self scrollToBottomAnimated:NO];
                                             } failure:^(NSError *error) {
                                                 NSLog(@"Error fetching messages: %@", error);
                                             }];
+}
+
+- (void)setMessages:(NSArray *)messages {
+    _messages = messages;
+    [self.tableView reloadData];
+    [self scrollToBottomAnimated:NO];
 }
 
 #pragma mark JSMessage deletage/datasource
@@ -62,6 +66,13 @@
 
 - (void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {
     NSLog(@"didSendText: %@ fromSender: %@ onDate: %@", text, sender, date);
+    MOGMessage *message = [[MOGMessage alloc] initWithText:text sender:sender date:date];
+    message.senderId = [MOGSessionService sharedService].currentUser.userId;
+    [[MOGMessageService sharedService] postMessage:message toRoom:self.room completion:^(MOGMessage *message) {
+        self.messages = [self.messages arrayByAddingObject:message];
+    } failure:^(NSError *error) {
+        NSLog(@"Error posting message: %@", error);
+    }];
     [self finishSend];
 }
 

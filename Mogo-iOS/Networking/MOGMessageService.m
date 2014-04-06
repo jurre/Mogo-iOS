@@ -7,8 +7,8 @@
 //
 
 #import "MOGMessageService.h"
-#import "MOGMessage.h"
 #import "TTTDateTransformers.h"
+#import "MOGSessionService.h"
 
 @implementation MOGMessageService
 
@@ -24,6 +24,10 @@
 
 - (NSString *)endpointForRoom:(MOGRoom *)room {
     return [NSString stringWithFormat:@"%@%@%ld", MOGOAPIBaseURL, MOGApiEndpointMessages, (long)room.roomId];
+}
+
+- (NSString *)messagesEndpoint {
+       return [NSString stringWithFormat:@"%@%@", MOGOAPIBaseURL, MOGApiEndpointMessages];
 }
 
 - (void)messagesForRoom:(MOGRoom *)room
@@ -43,14 +47,48 @@
     NSArray *rawMessages = responseObject[@"messages"];
     NSMutableArray *messages = [NSMutableArray arrayWithCapacity:[rawMessages count]];
     for (NSDictionary *rawMessage in rawMessages) {
-        NSDate *date = (NSDate *)[[NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName] transformedValue:rawMessage[@"created_at"]];
-        MOGMessage *message = [[MOGMessage alloc] initWithText:rawMessage[@"body"]
-                                                        sender:rawMessage[@"user"][@"name"]
-                                                          date:date];
-        message.senderId = [rawMessage[@"user_id"]integerValue];
+        MOGMessage *message = [self messageFromResponse:rawMessage];
         [messages addObject:message];
     }
     return [NSArray arrayWithArray:messages];
+}
+
+- (MOGMessage *)messageFromResponse:(NSDictionary *)responseObject {
+    NSDate *date = (NSDate *)[[NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName] transformedValue:responseObject[@"created_at"]];
+    MOGMessage *message = [[MOGMessage alloc] initWithText:responseObject[@"body"]
+                              sender:responseObject[@"user"][@"name"]
+                                date:date];
+    message.senderId = [responseObject[@"user_id"]integerValue];
+    return message;
+}
+
+- (void)postMessage:(MOGMessage *)message
+             toRoom:(MOGRoom *)room
+         completion:(void (^)(MOGMessage *message))completion
+            failure:(void (^)(NSError *error))failure {
+    NSDictionary *serializedMessage = [self serializedMessage:message forRoom:room];
+    [self.apiClient POST:[self messagesEndpoint]
+              parameters:serializedMessage
+                 success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                     MOGMessage *message = [self messageFromResponse:responseObject[@"message"]];
+                     message.sender = [MOGSessionService sharedService].currentUser.name;
+                     completion(message);
+                 }
+                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                     failure(error);
+                 }];
+
+}
+
+- (NSDictionary *)serializedMessage:(MOGMessage *)message forRoom:(MOGRoom *)room {
+    return @{
+                @"message": @{
+                     @"room_id": [NSNumber numberWithInteger: room.roomId],
+                     @"user_id": [NSNumber numberWithInteger: [MOGSessionService sharedService].currentUser.userId],
+                     @"body": message.text,
+                     @"type": @"text"
+                }
+             };
 }
 
 @end

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "MOGBaseService.h"
 #import "MOGRoom.h"
+#import "MOGMessage.h"
 
 static NSString *const MOGApiEndpointMessages = @"messages/";
 
@@ -17,5 +18,10 @@ static NSString *const MOGApiEndpointMessages = @"messages/";
 - (void)messagesForRoom:(MOGRoom *)room
              completion:(void (^)(NSArray *result))completion
                 failure:(void (^)(NSError *error))failure;
+
+- (void)postMessage:(MOGMessage *)message
+             toRoom:(MOGRoom *)room
+         completion:(void (^)(MOGMessage *message))completion
+            failure:(void (^)(NSError *error))failure;
 
 @end
