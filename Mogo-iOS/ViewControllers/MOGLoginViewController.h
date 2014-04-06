@@ -9,12 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "MOGAPIClient.h"
 
-@interface MOGLoginViewController : UIViewController
+@interface MOGLoginViewController : UITableViewController
 
-@property (nonatomic, weak) IBOutlet UITextField *authTokenTextField;;
+@property (nonatomic, weak) IBOutlet UITextField *emailTextField;
+@property (nonatomic, weak) IBOutlet UITextField *passwordTextField;
+@property (nonatomic, weak) IBOutlet UIButton *signInButton;
 
 @property (nonatomic, strong) MOGAPIClient *apiClient;
 
 - (IBAction)signInButtonTapped:(id)sender;
+
+- (IBAction)textfieldDidChange:(UITextField *)textField;
 
 @end

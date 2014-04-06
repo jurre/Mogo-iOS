@@ -19,10 +19,22 @@ static NSString *const MOGSegueIdentifierSignIn = @"MOGSignInSegue";
 	return self;
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.signInButton.enabled = false;
+}
+
 - (IBAction)signInButtonTapped:(id)sender {
-	NSString *authToken = self.authTokenTextField.text;
+	NSString *authToken = @"";
 	self.apiClient.authToken = authToken;
 	[self performSegueWithIdentifier:MOGSegueIdentifierSignIn sender:self];
+}
+
+
+- (IBAction)textfieldDidChange:(UITextField *)textField {
+    BOOL emailEntered = self.emailTextField.text && self.emailTextField.text.length > 0;
+    BOOL passwordEntered = self.passwordTextField.text && self.passwordTextField.text.length > 0;
+    self.signInButton.enabled = emailEntered && passwordEntered;
 }
 
 @end
