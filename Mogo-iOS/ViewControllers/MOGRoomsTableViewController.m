@@ -7,7 +7,6 @@
 //
 
 #import "MOGRoomsTableViewController.h"
-#import "MOGRoom.h"
 #import "MOGChatViewController.h"
 
 static NSString *MOGRoomCellIdentifier = @"MOGRoomCell";
@@ -39,18 +38,35 @@ static NSString *MOGSegueIdentifierOpenRoom = @"MOGSegueIdentifierOpenRoom";
 
 - (void)setup {
     _roomService = [MOGRoomService sharedService];
+    _sessionService = [MOGSessionService sharedService];
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
+    [self showAddRoomsButtonIfNeeded];
+    [self loadRooms];
+}
+
+- (void)showAddRoomsButtonIfNeeded {
+    if (![self.sessionService.currentUser isAdmin]) {
+        [self.navigationItem setRightBarButtonItem:nil];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self loadRooms];
+}
+
+- (void)loadRooms {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [self.roomService roomsWithCompletion:^(NSArray *result) {
         self.rooms = result;
         [self.tableView reloadData];
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     } failure:^(NSError *error) {
-        //
+        NSLog(@"Error loading rooms: %@", error);
     }];
 }
 

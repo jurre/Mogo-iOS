@@ -26,21 +26,34 @@ static NSString *const MOGSegueIdentifierSignIn = @"MOGSignInSegue";
 }
 
 - (IBAction)signInButtonTapped:(id)sender {
-    self.signInButton.enabled = false;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [self setSignInFieldsEnabled:NO];
+
+    void (^completion)() = ^{
+        [self setSignInFieldsEnabled:YES];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    };
+
     NSString *email = self.emailTextField.text;
     NSString *password = self.passwordTextField.text;
     [[MOGSessionService sharedService] signInWithEmail:email password:password completion:^(MOGUser *user) {
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         self.emailTextField.text = @"";
         self.passwordTextField.text = @"";
+
         self.apiClient.authToken = user.authToken;
+        completion();
         [self performSegueWithIdentifier:MOGSegueIdentifierSignIn sender:self];
     } failure:^(NSError *error) {
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        completion();
         NSLog(@"Failed signing in: %@", error);
-        self.signInButton.enabled = true;
+
     }];
+}
+
+- (void)setSignInFieldsEnabled:(BOOL)enabled {
+    self.emailTextField.enabled = enabled;
+    self.passwordTextField.enabled = enabled;
+    self.signInButton.enabled = enabled;
 }
 
 

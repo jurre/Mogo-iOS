@@ -8,9 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "MOGRoomService.h"
+#import "MOGRoom.h"
+#import "MOGSessionService.h"
 
 @interface MOGRoomsTableViewController : UITableViewController
 
+@property (nonatomic, weak) IBOutlet UIBarButtonItem *addRoomButton;
+
 @property (nonatomic, strong) MOGRoomService *roomService;
+@property (nonatomic, strong) MOGSessionService *sessionService;
 
 @end

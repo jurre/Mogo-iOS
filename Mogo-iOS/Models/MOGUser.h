@@ -16,4 +16,6 @@
 @property (nonatomic, copy) NSString *authToken;
 @property (nonatomic, copy) NSString *role;
 
+- (BOOL)isAdmin;
+
 @end

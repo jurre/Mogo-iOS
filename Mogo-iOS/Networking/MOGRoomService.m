@@ -7,7 +7,6 @@
 //
 
 #import "MOGRoomService.h"
-#import "MOGRoom.h"
 
 @implementation MOGRoomService
 
@@ -36,6 +35,22 @@
                     failure(error);
                 }];
 }
+
+- (void)createRoomWithName:(NSString *)name
+                completion:(void (^)(MOGRoom *room))completion
+                   failure:(void (^)(NSError *error))failure {
+    NSDictionary *params = @{ @"room": @{@"name": name} };
+    [self.apiClient POST:[self endpoint] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        MOGRoom *room = [[MOGRoom alloc] init];
+        room.name = responseObject[@"room"][@"name"];
+        room.roomId = [responseObject[@"room"][@"id"] integerValue];
+        completion(room);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(error);
+    }];
+}
+
+#pragma mark - Private
 
 - (NSArray *)roomsFromResponse:(id)responseObject {
     NSArray *jsonArray = responseObject[@"rooms"];

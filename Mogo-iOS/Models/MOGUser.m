@@ -10,4 +10,8 @@
 
 @implementation MOGUser
 
+- (BOOL)isAdmin {
+    return [self.role isEqualToString:@"admin"];
+}
+
 @end
