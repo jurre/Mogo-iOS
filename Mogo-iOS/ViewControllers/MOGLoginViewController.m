@@ -8,6 +8,7 @@
 
 #import "MOGLoginViewController.h"
 #import "MOGSessionService.h"
+#import "CRToast.h"
 
 static NSString *const MOGSegueIdentifierSignIn = @"MOGSignInSegue";
 
@@ -45,6 +46,8 @@ static NSString *const MOGSegueIdentifierSignIn = @"MOGSignInSegue";
         [self performSegueWithIdentifier:MOGSegueIdentifierSignIn sender:self];
     } failure:^(NSError *error) {
         completion();
+
+        [CRToastManager showNotificationWithMessage:@"You done goofed. Try again." completionBlock:nil];
         NSLog(@"Failed signing in: %@", error);
 
     }];
