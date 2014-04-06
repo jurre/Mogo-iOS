@@ -10,4 +10,6 @@
 
 @interface MOGMessage : JSMessage
 
+@property NSInteger senderId;
+
 @end

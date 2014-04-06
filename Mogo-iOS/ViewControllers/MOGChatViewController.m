@@ -9,6 +9,8 @@
 #import "MOGChatViewController.h"
 #import "MOGMessageService.h"
 #import "MOGAvatarFactory.h"
+#import "MOGMessage.h"
+#import "MOGSessionService.h"
 
 @interface MOGChatViewController ()
 
@@ -29,7 +31,8 @@
     self.dataSource = self;
     self.messageInputView.textView.placeHolder = @"Message...";
 
-    self.sender = @"Jurre";
+    self.sender = [[MOGSessionService sharedService] currentUser].name;
+    self.title = self.room.name;
 }
 
 - (void)loadMessages {
@@ -37,8 +40,9 @@
                                             completion:^(NSArray *result) {
                                                 self.messages = result;
                                                 [self.tableView reloadData];
+                                                [self scrollToBottomAnimated:NO];
                                             } failure:^(NSError *error) {
-                                                //
+                                                NSLog(@"Error fetching messages: %@", error);
                                             }];
 }
 
@@ -53,7 +57,7 @@
 }
 
 - (UIImageView *)avatarImageViewForRowAtIndexPath:(NSIndexPath *)indexPath sender:(NSString *)sender {
-    return [MOGAvatarFactory avatarForUsername:sender];
+    return nil; // [MOGAvatarFactory avatarForUsername:sender];
 }
 
 - (void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {
@@ -62,17 +66,18 @@
 }
 
 - (JSBubbleMessageType)messageTypeForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return JSBubbleMessageTypeIncoming;
+    MOGMessage *message = self.messages[indexPath.row];
+    return message.senderId == [[MOGSessionService sharedService] currentUser].userId ? JSBubbleMessageTypeOutgoing : JSBubbleMessageTypeIncoming;
 }
 
 - (UIImageView *)bubbleImageViewWithType:(JSBubbleMessageType)type forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row % 2) {
+    MOGMessage *message = self.messages[indexPath.row];
+    if (message.senderId == [[MOGSessionService sharedService] currentUser].userId) {
         return [JSBubbleImageViewFactory bubbleImageViewForType:type
-                                                          color:[UIColor js_bubbleLightGrayColor]];
+                                                          color:[UIColor js_bubbleBlueColor]];
     }
-
     return [JSBubbleImageViewFactory bubbleImageViewForType:type
-                                                      color:[UIColor js_bubbleBlueColor]];
+                                                      color:[UIColor js_bubbleLightGrayColor]];
 }
 
 - (JSMessageInputViewStyle)inputViewStyle {

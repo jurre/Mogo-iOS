@@ -47,6 +47,7 @@
         MOGMessage *message = [[MOGMessage alloc] initWithText:rawMessage[@"body"]
                                                         sender:rawMessage[@"user"][@"name"]
                                                           date:date];
+        message.senderId = [rawMessage[@"user_id"]integerValue];
         [messages addObject:message];
     }
     return [NSArray arrayWithArray:messages];
