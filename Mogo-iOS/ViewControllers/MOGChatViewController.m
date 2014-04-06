@@ -88,7 +88,6 @@
 }
 
 - (void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {
-    NSLog(@"didSendText: %@ fromSender: %@ onDate: %@", text, sender, date);
     MOGMessage *message = [[MOGMessage alloc] initWithText:text sender:sender date:date];
     message.senderId = self.currentUser.userId;
 
@@ -99,6 +98,8 @@
                           } failure:^(NSError *error) {
                               NSLog(@"Error posting message: %@", error);
                           }];
+    
+    [self.messageInputView.textView.undoManager removeAllActions];
     [self finishSend];
 }
 
