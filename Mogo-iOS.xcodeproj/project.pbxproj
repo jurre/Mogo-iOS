@@ -31,6 +31,7 @@
 		0795D10118E839DC006670C3 /* MOGMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0795D10018E839DC006670C3 /* MOGMessage.m */; };
 		0795D10418E83B6E006670C3 /* MOGMessageService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0795D10318E83B6E006670C3 /* MOGMessageService.m */; };
 		0795D10818E8721F006670C3 /* MOGAvatarFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0795D10718E8721F006670C3 /* MOGAvatarFactory.m */; };
+		07A906A318F17FF600E5CEE8 /* MOGMessagePoller.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A906A218F17FF600E5CEE8 /* MOGMessagePoller.m */; };
 		3B836B528D0C44BF95A800AF /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F69626033574422A44E44A5 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -84,6 +85,8 @@
 		0795D10318E83B6E006670C3 /* MOGMessageService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MOGMessageService.m; path = Networking/MOGMessageService.m; sourceTree = "<group>"; };
 		0795D10618E8721F006670C3 /* MOGAvatarFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MOGAvatarFactory.h; path = Views/MOGAvatarFactory.h; sourceTree = "<group>"; };
 		0795D10718E8721F006670C3 /* MOGAvatarFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MOGAvatarFactory.m; path = Views/MOGAvatarFactory.m; sourceTree = "<group>"; };
+		07A906A118F17FF600E5CEE8 /* MOGMessagePoller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MOGMessagePoller.h; path = Networking/MOGMessagePoller.h; sourceTree = "<group>"; };
+		07A906A218F17FF600E5CEE8 /* MOGMessagePoller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MOGMessagePoller.m; path = Networking/MOGMessagePoller.m; sourceTree = "<group>"; };
 		8F69626033574422A44E44A5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		94F6D6A1E34249C8A5A2EEC1 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -185,6 +188,8 @@
 				07563CD218F15C2C00F66E24 /* MOGSessionService.m */,
 				07563CD418F15D8300F66E24 /* MOGBaseService.h */,
 				07563CD518F15D8300F66E24 /* MOGBaseService.m */,
+				07A906A118F17FF600E5CEE8 /* MOGMessagePoller.h */,
+				07A906A218F17FF600E5CEE8 /* MOGMessagePoller.m */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -362,6 +367,7 @@
 				0727EF7518E38F390023F2BE /* MOGRoomService.m in Sources */,
 				0727EF4F18E3880A0023F2BE /* main.m in Sources */,
 				0795D10418E83B6E006670C3 /* MOGMessageService.m in Sources */,
+				07A906A318F17FF600E5CEE8 /* MOGMessagePoller.m in Sources */,
 				07563CD918F1602B00F66E24 /* MOGUser.m in Sources */,
 				07563CD618F15D8300F66E24 /* MOGBaseService.m in Sources */,
 				0727EF4918E3880A0023F2BE /* MOGAPIClient.m in Sources */,

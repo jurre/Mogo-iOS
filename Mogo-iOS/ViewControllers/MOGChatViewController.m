@@ -11,10 +11,12 @@
 #import "MOGAvatarFactory.h"
 #import "MOGMessage.h"
 #import "MOGSessionService.h"
+#import "MOGMessagePoller.h"
 
-@interface MOGChatViewController ()
+@interface MOGChatViewController () <MOGMessagePollerDelegate>
 
 @property (nonatomic, strong) NSArray *messages;
+@property (nonatomic) MOGMessagePoller *poller;
 
 @end
 
@@ -24,6 +26,12 @@
     [self setupChat];
     [super viewDidLoad];
     [self loadMessages];
+    [self setupPolling];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.poller stopPolling];
+    [super viewWillDisappear:animated];
 }
 
 - (void)setupChat {
@@ -33,6 +41,12 @@
 
     self.sender = [[MOGSessionService sharedService] currentUser].name;
     self.title = self.room.name;
+}
+
+- (void)setupPolling {
+    self.poller = [[MOGMessagePoller alloc] initWithRoom:self.room];
+    self.poller.delegate = self;
+    [self.poller startPolling];
 }
 
 - (void)loadMessages {
@@ -93,6 +107,12 @@
 
 - (JSMessageInputViewStyle)inputViewStyle {
     return JSMessageInputViewStyleFlat;
+}
+
+#pragma mark - MOGMessagePollerDelegate
+
+- (void)pollerDidFetchNewMessages:(NSArray *)newMessages {
+    self.messages = [self.messages arrayByAddingObjectsFromArray:newMessages];
 }
 
 @end

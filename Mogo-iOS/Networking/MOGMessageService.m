@@ -33,13 +33,25 @@
 - (void)messagesForRoom:(MOGRoom *)room
              completion:(void (^)(NSArray *result))completion
                 failure:(void (^)(NSError *error))failure {
+    [self messagesForRoom:room after:0 completion:completion failure:failure];
+
+}
+
+- (void)messagesForRoom:(MOGRoom *)room
+                  after:(NSInteger)after
+             completion:(void (^)(NSArray *result))completion
+                failure:(void (^)(NSError *error))failure {
+    NSDictionary *params = nil;
+    if (after) { params = @{@"after": [NSNumber numberWithInteger:after] }; }
+
     [self.apiClient GET:[self endpointForRoom:room]
-             parameters:nil
+             parameters:params
                 success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     completion([self messagesFromResponse:responseObject]);
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     failure(error);
                 }];
+
 }
 
 
