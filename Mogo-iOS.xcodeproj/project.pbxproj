@@ -32,6 +32,7 @@
 		0795D10418E83B6E006670C3 /* MOGMessageService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0795D10318E83B6E006670C3 /* MOGMessageService.m */; };
 		0795D10818E8721F006670C3 /* MOGAvatarFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0795D10718E8721F006670C3 /* MOGAvatarFactory.m */; };
 		07A906A318F17FF600E5CEE8 /* MOGMessagePoller.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A906A218F17FF600E5CEE8 /* MOGMessagePoller.m */; };
+		07A906A618F1A55100E5CEE8 /* MOGNewRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A906A518F1A55100E5CEE8 /* MOGNewRoomViewController.m */; };
 		3B836B528D0C44BF95A800AF /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F69626033574422A44E44A5 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -87,6 +88,8 @@
 		0795D10718E8721F006670C3 /* MOGAvatarFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MOGAvatarFactory.m; path = Views/MOGAvatarFactory.m; sourceTree = "<group>"; };
 		07A906A118F17FF600E5CEE8 /* MOGMessagePoller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MOGMessagePoller.h; path = Networking/MOGMessagePoller.h; sourceTree = "<group>"; };
 		07A906A218F17FF600E5CEE8 /* MOGMessagePoller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MOGMessagePoller.m; path = Networking/MOGMessagePoller.m; sourceTree = "<group>"; };
+		07A906A418F1A55100E5CEE8 /* MOGNewRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MOGNewRoomViewController.h; path = ViewControllers/MOGNewRoomViewController.h; sourceTree = "<group>"; };
+		07A906A518F1A55100E5CEE8 /* MOGNewRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MOGNewRoomViewController.m; path = ViewControllers/MOGNewRoomViewController.m; sourceTree = "<group>"; };
 		8F69626033574422A44E44A5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		94F6D6A1E34249C8A5A2EEC1 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -203,6 +206,8 @@
 				0727EF7D18E398870023F2BE /* MOGRoomsTableViewController.m */,
 				073191D318E41BDF003107B6 /* MOGChatViewController.h */,
 				073191D418E41BDF003107B6 /* MOGChatViewController.m */,
+				07A906A418F1A55100E5CEE8 /* MOGNewRoomViewController.h */,
+				07A906A518F1A55100E5CEE8 /* MOGNewRoomViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -375,6 +380,7 @@
 				073191D218E3A6A5003107B6 /* MOGRoom.m in Sources */,
 				0727EF7918E391270023F2BE /* MOGLoginViewController.m in Sources */,
 				0795D10118E839DC006670C3 /* MOGMessage.m in Sources */,
+				07A906A618F1A55100E5CEE8 /* MOGNewRoomViewController.m in Sources */,
 				0727EF5218E3880A0023F2BE /* MOGAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
