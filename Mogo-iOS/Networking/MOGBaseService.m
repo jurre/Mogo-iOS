@@ -10,4 +10,9 @@
 
 @implementation MOGBaseService
 
++ (instancetype)sharedService {
+    [NSException raise:@"Implement in subclass" format:@"This method should be implemented by subclasses only"];
+    return nil;
+}
+
 @end
