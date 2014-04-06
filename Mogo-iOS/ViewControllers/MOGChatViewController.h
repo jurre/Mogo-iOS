@@ -9,9 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "JSMessagesViewController.h"
 #import "MOGRoom.h"
+#import "MOGSessionService.h"
+#import "MOGMessageService.h"
 
 @interface MOGChatViewController : JSMessagesViewController <JSMessagesViewDataSource, JSMessagesViewDelegate>
 
 @property (nonatomic, retain) MOGRoom *room;
+@property (nonatomic) MOGSessionService *sessionService;
+@property (nonatomic) MOGMessageService *messageService;
 
 @end

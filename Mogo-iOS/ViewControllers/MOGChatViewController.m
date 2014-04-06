@@ -7,10 +7,7 @@
 //
 
 #import "MOGChatViewController.h"
-#import "MOGMessageService.h"
-#import "MOGAvatarFactory.h"
 #import "MOGMessage.h"
-#import "MOGSessionService.h"
 #import "MOGMessagePoller.h"
 
 @interface MOGChatViewController () <MOGMessagePollerDelegate>
@@ -25,6 +22,7 @@
 - (void)viewDidLoad {
     [self setupChat];
     [super viewDidLoad];
+    [self setupServices];
     [self loadMessages];
     [self setupPolling];
 }
@@ -39,7 +37,7 @@
     self.dataSource = self;
     self.messageInputView.textView.placeHolder = @"Message...";
 
-    self.sender = [[MOGSessionService sharedService] currentUser].name;
+    self.sender = [self.sessionService currentUser].name;
     self.title = self.room.name;
 }
 
@@ -49,13 +47,18 @@
     [self.poller startPolling];
 }
 
+- (void)setupServices {
+    self.sessionService = [MOGSessionService sharedService];
+    self.messageService = [MOGMessageService sharedService];
+}
+
 - (void)loadMessages {
-    [[MOGMessageService sharedService] messagesForRoom:self.room
-                                            completion:^(NSArray *result) {
-                                                self.messages = result;
-                                            } failure:^(NSError *error) {
-                                                NSLog(@"Error fetching messages: %@", error);
-                                            }];
+    [self.messageService messagesForRoom:self.room
+                              completion:^(NSArray *result) {
+                                  self.messages = result;
+                              } failure:^(NSError *error) {
+                                  NSLog(@"Error fetching messages: %@", error);
+                              }];
 }
 
 - (void)setMessages:(NSArray *)messages {
@@ -64,7 +67,13 @@
     [self scrollToBottomAnimated:NO];
 }
 
-#pragma mark JSMessage deletage/datasource
+#pragma mark -
+
+- (MOGUser *)currentUser {
+    return self.sessionService.currentUser;
+}
+
+#pragma mark - JSMessage deletage/datasource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.messages.count;
@@ -81,23 +90,26 @@
 - (void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date {
     NSLog(@"didSendText: %@ fromSender: %@ onDate: %@", text, sender, date);
     MOGMessage *message = [[MOGMessage alloc] initWithText:text sender:sender date:date];
-    message.senderId = [MOGSessionService sharedService].currentUser.userId;
-    [[MOGMessageService sharedService] postMessage:message toRoom:self.room completion:^(MOGMessage *message) {
-        self.messages = [self.messages arrayByAddingObject:message];
-    } failure:^(NSError *error) {
-        NSLog(@"Error posting message: %@", error);
-    }];
+    message.senderId = self.currentUser.userId;
+
+    [self.messageService postMessage:message
+                              toRoom:self.room
+                          completion:^(MOGMessage *message) {
+                              self.messages = [self.messages arrayByAddingObject:message];
+                          } failure:^(NSError *error) {
+                              NSLog(@"Error posting message: %@", error);
+                          }];
     [self finishSend];
 }
 
 - (JSBubbleMessageType)messageTypeForRowAtIndexPath:(NSIndexPath *)indexPath {
     MOGMessage *message = self.messages[indexPath.row];
-    return message.senderId == [[MOGSessionService sharedService] currentUser].userId ? JSBubbleMessageTypeOutgoing : JSBubbleMessageTypeIncoming;
+    return message.senderId == self.currentUser.userId ? JSBubbleMessageTypeOutgoing : JSBubbleMessageTypeIncoming;
 }
 
 - (UIImageView *)bubbleImageViewWithType:(JSBubbleMessageType)type forRowAtIndexPath:(NSIndexPath *)indexPath {
     MOGMessage *message = self.messages[indexPath.row];
-    if (message.senderId == [[MOGSessionService sharedService] currentUser].userId) {
+    if (message.senderId == self.currentUser.userId) {
         return [JSBubbleImageViewFactory bubbleImageViewForType:type
                                                           color:[UIColor js_bubbleBlueColor]];
     }
