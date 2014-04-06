@@ -7,6 +7,7 @@
 //
 
 #import "MOGLoginViewController.h"
+#import "MOGSessionService.h"
 
 static NSString *const MOGSegueIdentifierSignIn = @"MOGSignInSegue";
 
@@ -25,9 +26,21 @@ static NSString *const MOGSegueIdentifierSignIn = @"MOGSignInSegue";
 }
 
 - (IBAction)signInButtonTapped:(id)sender {
-	NSString *authToken = @"";
-	self.apiClient.authToken = authToken;
-	[self performSegueWithIdentifier:MOGSegueIdentifierSignIn sender:self];
+    self.signInButton.enabled = false;
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    NSString *email = self.emailTextField.text;
+    NSString *password = self.passwordTextField.text;
+    [[MOGSessionService sharedService] signInWithEmail:email password:password completion:^(MOGUser *user) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        self.emailTextField.text = @"";
+        self.passwordTextField.text = @"";
+        self.apiClient.authToken = user.authToken;
+        [self performSegueWithIdentifier:MOGSegueIdentifierSignIn sender:self];
+    } failure:^(NSError *error) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        NSLog(@"Failed signing in: %@", error);
+        self.signInButton.enabled = true;
+    }];
 }
 
 

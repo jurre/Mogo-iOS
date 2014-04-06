@@ -7,15 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MOGAPIClient.h"
+#import "MOGBaseService.h"
 
 static NSString *const MOGApiEndpointRooms = @"rooms";
 
-@interface MOGRoomService : NSObject
-
-@property (nonatomic, strong) MOGAPIClient *apiClient;
-
-+ (instancetype)sharedService;
+@interface MOGRoomService : MOGBaseService
 
 - (void)roomsWithCompletion:(void (^)(NSArray *result))completion failure:(void (^)(NSError *error))failure;
 

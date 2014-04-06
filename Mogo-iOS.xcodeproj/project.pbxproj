@@ -25,6 +25,9 @@
 		0727EF7E18E398870023F2BE /* MOGRoomsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0727EF7D18E398870023F2BE /* MOGRoomsTableViewController.m */; };
 		073191D218E3A6A5003107B6 /* MOGRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 073191D118E3A6A5003107B6 /* MOGRoom.m */; };
 		073191D518E41BDF003107B6 /* MOGChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 073191D418E41BDF003107B6 /* MOGChatViewController.m */; };
+		07563CD318F15C2C00F66E24 /* MOGSessionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07563CD218F15C2C00F66E24 /* MOGSessionService.m */; };
+		07563CD618F15D8300F66E24 /* MOGBaseService.m in Sources */ = {isa = PBXBuildFile; fileRef = 07563CD518F15D8300F66E24 /* MOGBaseService.m */; };
+		07563CD918F1602B00F66E24 /* MOGUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 07563CD818F1602B00F66E24 /* MOGUser.m */; };
 		0795D10118E839DC006670C3 /* MOGMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0795D10018E839DC006670C3 /* MOGMessage.m */; };
 		0795D10418E83B6E006670C3 /* MOGMessageService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0795D10318E83B6E006670C3 /* MOGMessageService.m */; };
 		0795D10818E8721F006670C3 /* MOGAvatarFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0795D10718E8721F006670C3 /* MOGAvatarFactory.m */; };
@@ -69,6 +72,12 @@
 		073191D118E3A6A5003107B6 /* MOGRoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MOGRoom.m; path = Models/MOGRoom.m; sourceTree = "<group>"; };
 		073191D318E41BDF003107B6 /* MOGChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MOGChatViewController.h; path = ViewControllers/MOGChatViewController.h; sourceTree = "<group>"; };
 		073191D418E41BDF003107B6 /* MOGChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MOGChatViewController.m; path = ViewControllers/MOGChatViewController.m; sourceTree = "<group>"; };
+		07563CD118F15C2C00F66E24 /* MOGSessionService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MOGSessionService.h; path = Networking/MOGSessionService.h; sourceTree = "<group>"; };
+		07563CD218F15C2C00F66E24 /* MOGSessionService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MOGSessionService.m; path = Networking/MOGSessionService.m; sourceTree = "<group>"; };
+		07563CD418F15D8300F66E24 /* MOGBaseService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MOGBaseService.h; path = Networking/MOGBaseService.h; sourceTree = "<group>"; };
+		07563CD518F15D8300F66E24 /* MOGBaseService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MOGBaseService.m; path = Networking/MOGBaseService.m; sourceTree = "<group>"; };
+		07563CD718F1602B00F66E24 /* MOGUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MOGUser.h; path = Models/MOGUser.h; sourceTree = "<group>"; };
+		07563CD818F1602B00F66E24 /* MOGUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MOGUser.m; path = Models/MOGUser.m; sourceTree = "<group>"; };
 		0795D0FF18E839DC006670C3 /* MOGMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MOGMessage.h; path = Models/MOGMessage.h; sourceTree = "<group>"; };
 		0795D10018E839DC006670C3 /* MOGMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MOGMessage.m; path = Models/MOGMessage.m; sourceTree = "<group>"; };
 		0795D10218E83B6E006670C3 /* MOGMessageService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MOGMessageService.h; path = Networking/MOGMessageService.h; sourceTree = "<group>"; };
@@ -172,6 +181,10 @@
 				0727EF7418E38F390023F2BE /* MOGRoomService.m */,
 				0795D10218E83B6E006670C3 /* MOGMessageService.h */,
 				0795D10318E83B6E006670C3 /* MOGMessageService.m */,
+				07563CD118F15C2C00F66E24 /* MOGSessionService.h */,
+				07563CD218F15C2C00F66E24 /* MOGSessionService.m */,
+				07563CD418F15D8300F66E24 /* MOGBaseService.h */,
+				07563CD518F15D8300F66E24 /* MOGBaseService.m */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -196,6 +209,8 @@
 				073191D118E3A6A5003107B6 /* MOGRoom.m */,
 				0795D0FF18E839DC006670C3 /* MOGMessage.h */,
 				0795D10018E839DC006670C3 /* MOGMessage.m */,
+				07563CD718F1602B00F66E24 /* MOGUser.h */,
+				07563CD818F1602B00F66E24 /* MOGUser.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -343,9 +358,12 @@
 			files = (
 				0727EF7E18E398870023F2BE /* MOGRoomsTableViewController.m in Sources */,
 				0795D10818E8721F006670C3 /* MOGAvatarFactory.m in Sources */,
+				07563CD318F15C2C00F66E24 /* MOGSessionService.m in Sources */,
 				0727EF7518E38F390023F2BE /* MOGRoomService.m in Sources */,
 				0727EF4F18E3880A0023F2BE /* main.m in Sources */,
 				0795D10418E83B6E006670C3 /* MOGMessageService.m in Sources */,
+				07563CD918F1602B00F66E24 /* MOGUser.m in Sources */,
+				07563CD618F15D8300F66E24 /* MOGBaseService.m in Sources */,
 				0727EF4918E3880A0023F2BE /* MOGAPIClient.m in Sources */,
 				073191D518E41BDF003107B6 /* MOGChatViewController.m in Sources */,
 				073191D218E3A6A5003107B6 /* MOGRoom.m in Sources */,

@@ -48,7 +48,7 @@
                                                     <rect key="frame" x="110" y="7" width="190" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                     <connections>
                                                         <action selector="textfieldDidChange:" destination="CiD-Yk-1U6" eventType="editingChanged" id="S6r-3S-OuZ"/>
                                                     </connections>
@@ -74,7 +74,7 @@
                                                     <rect key="frame" x="110" y="7" width="190" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                     <connections>
                                                         <action selector="textfieldDidChange:" destination="CiD-Yk-1U6" eventType="editingChanged" id="A1L-H4-X6A"/>
                                                     </connections>
