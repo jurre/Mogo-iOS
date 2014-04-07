@@ -7,7 +7,6 @@
 //
 
 #import "MOGLoginViewController.h"
-#import "MOGSessionService.h"
 #import "CRToast.h"
 
 static NSString *const MOGSegueIdentifierSignIn = @"MOGSignInSegue";
@@ -17,6 +16,7 @@ static NSString *const MOGSegueIdentifierSignIn = @"MOGSignInSegue";
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	if ((self = [super initWithCoder:aDecoder])) {
 		_apiClient = [MOGAPIClient sharedClient];
+        _sessionService = [MOGSessionService sharedService];
 	}
 	return self;
 }
@@ -24,6 +24,7 @@ static NSString *const MOGSegueIdentifierSignIn = @"MOGSignInSegue";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.signInButton.enabled = false;
+    self.baseURLTextField.text = self.sessionService.baseURL;
 }
 
 - (IBAction)signInButtonTapped:(id)sender {
@@ -35,9 +36,13 @@ static NSString *const MOGSegueIdentifierSignIn = @"MOGSignInSegue";
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     };
 
+    NSString *baseURL = self.baseURLTextField.text;
+    self.sessionService.baseURL = baseURL;
+    self.apiClient.baseURL = baseURL;
+
     NSString *email = self.emailTextField.text;
     NSString *password = self.passwordTextField.text;
-    [[MOGSessionService sharedService] signInWithEmail:email password:password completion:^(MOGUser *user) {
+    [self.sessionService signInWithEmail:email password:password completion:^(MOGUser *user) {
         self.emailTextField.text = @"";
         self.passwordTextField.text = @"";
 
@@ -61,9 +66,14 @@ static NSString *const MOGSegueIdentifierSignIn = @"MOGSignInSegue";
 
 
 - (IBAction)textfieldDidChange:(UITextField *)textField {
-    BOOL emailEntered = self.emailTextField.text && self.emailTextField.text.length > 0;
-    BOOL passwordEntered = self.passwordTextField.text && self.passwordTextField.text.length > 0;
-    self.signInButton.enabled = emailEntered && passwordEntered;
+    BOOL baseURLEntered = [self textFieldIsSet:self.baseURLTextField];
+    BOOL emailEntered = [self textFieldIsSet:self.emailTextField];
+    BOOL passwordEntered = [self textFieldIsSet:self.passwordTextField];
+    self.signInButton.enabled = baseURLEntered && emailEntered && passwordEntered;
+}
+
+- (BOOL)textFieldIsSet:(UITextField *)textField {
+    return textField.text && textField.text.length > 0;
 }
 
 @end

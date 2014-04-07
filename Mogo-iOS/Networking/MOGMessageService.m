@@ -32,11 +32,12 @@
 }
 
 - (NSString *)endpointForRoom:(MOGRoom *)room {
-    return [NSString stringWithFormat:@"%@%@%ld", MOGOAPIBaseURL, MOGApiEndpointMessages, (long)room.roomId];
+    NSString *roomString = [NSString stringWithFormat:@"%d", room.roomId];
+    return [[self.apiClient.baseURLString stringByAppendingPathComponent:MOGApiEndpointMessages] stringByAppendingPathComponent:roomString];
 }
 
 - (NSString *)messagesEndpoint {
-       return [NSString stringWithFormat:@"%@%@", MOGOAPIBaseURL, MOGApiEndpointMessages];
+    return [self.apiClient.baseURLString stringByAppendingPathComponent:MOGApiEndpointMessages];
 }
 
 - (void)messagesForRoom:(MOGRoom *)room

@@ -21,7 +21,7 @@
 }
 
 - (NSString *)endpoint {
-    return [NSString stringWithFormat:@"%@%@", MOGOAPIBaseURL, MOGApiEndpointRooms];
+    return [self.apiClient.baseURLString stringByAppendingPathComponent:MOGApiEndpointRooms];
 }
 
 - (void)roomsWithCompletion:(void (^)(NSArray *result))completion failure:(void (^)(NSError *error))failure {

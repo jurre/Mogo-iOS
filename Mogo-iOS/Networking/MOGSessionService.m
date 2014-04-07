@@ -8,6 +8,8 @@
 
 #import "MOGSessionService.h"
 
+static NSString *const MOGUserDefaultsBaseURL = @"MOGUserDefaultsBaseURL";
+
 @implementation MOGSessionService
 
 + (instancetype)sharedService {
@@ -21,7 +23,7 @@
 }
 
 - (NSString *)endpoint {
-    return [NSString stringWithFormat:@"%@%@", MOGOAPIBaseURL, MOGAPIEndPointSession];
+    return [self.apiClient.baseURLString stringByAppendingPathComponent:MOGAPIEndPointSession];
 }
 
 - (void)signInWithEmail:(NSString *)email
@@ -50,6 +52,16 @@
     user.authToken = responseObject[@"auth_token"];
     user.role = responseObject[@"role"];
     return user;
+}
+
+#pragma mark - User Defaults / Keychain
+
+- (void)setBaseURL:(NSString *)baseURL {
+    [[NSUserDefaults standardUserDefaults] setValue:baseURL forKey:MOGUserDefaultsBaseURL];
+}
+
+- (NSString *)baseURL {
+    return [[NSUserDefaults standardUserDefaults] valueForKey:MOGUserDefaultsBaseURL];
 }
 
 @end

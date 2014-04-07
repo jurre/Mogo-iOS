@@ -3,7 +3,7 @@
 An iOS client for [Mogo](https://github.com/HashNuke/mogo-chat).
 
 # Usage
-1. Set the `MOGOAPIBaseURL` in the `MOGAPIClient` to your own installations endpoint.
+1. Sign in by entering your Mogo's web address, username and password
 2. Start chatting.
 
 ## What does it look like?
