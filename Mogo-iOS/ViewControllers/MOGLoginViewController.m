@@ -25,6 +25,7 @@ static NSString *const MOGSegueIdentifierSignIn = @"MOGSignInSegue";
     [super viewDidLoad];
     self.signInButton.enabled = false;
     self.baseURLTextField.text = self.sessionService.baseURL;
+    self.emailTextField.text = self.sessionService.emailAddress;
 }
 
 - (IBAction)signInButtonTapped:(id)sender {
@@ -42,6 +43,9 @@ static NSString *const MOGSegueIdentifierSignIn = @"MOGSignInSegue";
 
     NSString *email = self.emailTextField.text;
     NSString *password = self.passwordTextField.text;
+
+    self.sessionService.emailAddress = email;
+
     [self.sessionService signInWithEmail:email password:password completion:^(MOGUser *user) {
         self.emailTextField.text = @"";
         self.passwordTextField.text = @"";

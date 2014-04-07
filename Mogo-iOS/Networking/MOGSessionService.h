@@ -16,6 +16,7 @@ static NSString *const MOGAPIEndPointSession = @"sessions";
 
 @property (nonatomic, strong) MOGUser *currentUser;
 @property (nonatomic, copy) NSString *baseURL;
+@property (nonatomic, copy) NSString *emailAddress;
 
 - (void)signInWithEmail:(NSString *)email
                password:(NSString *)password

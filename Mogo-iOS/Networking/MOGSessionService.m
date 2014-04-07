@@ -9,6 +9,7 @@
 #import "MOGSessionService.h"
 
 static NSString *const MOGUserDefaultsBaseURL = @"MOGUserDefaultsBaseURL";
+static NSString *const MOGUserDefaultsEmailAddress = @"MOGUserDefaultsEmailAddress";
 
 @implementation MOGSessionService
 
@@ -58,10 +59,21 @@ static NSString *const MOGUserDefaultsBaseURL = @"MOGUserDefaultsBaseURL";
 
 - (void)setBaseURL:(NSString *)baseURL {
     [[NSUserDefaults standardUserDefaults] setValue:baseURL forKey:MOGUserDefaultsBaseURL];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (NSString *)baseURL {
     return [[NSUserDefaults standardUserDefaults] valueForKey:MOGUserDefaultsBaseURL];
 }
+
+- (void)setEmailAddress:(NSString *)emailAddress {
+    [[NSUserDefaults standardUserDefaults] setValue:emailAddress forKey:MOGUserDefaultsEmailAddress];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSString *)emailAddress {
+    return [[NSUserDefaults standardUserDefaults] valueForKey:MOGUserDefaultsEmailAddress];
+}
+
 
 @end
