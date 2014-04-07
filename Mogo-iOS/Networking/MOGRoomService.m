@@ -24,6 +24,11 @@
     return [self.apiClient.baseURLString stringByAppendingPathComponent:MOGApiEndpointRooms];
 }
 
+- (NSString *)endpointWithRoom:(MOGRoom *)room {
+    NSString *roomId = [NSString stringWithFormat:@"%d", room.roomId];
+    return [[self endpoint] stringByAppendingPathComponent:roomId];
+}
+
 - (void)roomsWithCompletion:(void (^)(NSArray *result))completion failure:(void (^)(NSError *error))failure {
     [self.apiClient GET:[self endpoint]
              parameters:nil
@@ -48,6 +53,26 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failure(error);
     }];
+}
+
+- (void)deleteRoom:(MOGRoom *)room
+        completion:(void (^)(void))completion
+           failure:(void (^)(NSError *error))failure {
+    self.apiClient.responseSerializer.acceptableContentTypes = [self.apiClient.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
+    [self.apiClient DELETE:[self endpointWithRoom:room]
+                parameters:nil
+                   success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                       completion();
+                   } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                       // For some reason the empty body that is returned by the server
+                       // causes AFNetworking/NSURLConnection to see this as a failure.
+                       // However, as long as the statusCode is 200, we should be fine.
+                       if (operation.response.statusCode == 200) {
+                           completion();
+                       } else {
+                           failure(error);
+                       }
+                   }];
 }
 
 #pragma mark - Private

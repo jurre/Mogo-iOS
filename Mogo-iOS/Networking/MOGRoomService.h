@@ -22,4 +22,8 @@ static NSString *const MOGApiEndpointRooms = @"rooms";
                 completion:(void (^)(MOGRoom *room))completion
                    failure:(void (^)(NSError *error))failure;
 
+- (void)deleteRoom:(MOGRoom *)room
+        completion:(void (^)(void))completion
+           failure:(void (^)(NSError *error))failure;
+
 @end

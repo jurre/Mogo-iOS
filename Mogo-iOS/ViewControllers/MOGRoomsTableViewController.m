@@ -8,6 +8,7 @@
 
 #import "MOGRoomsTableViewController.h"
 #import "MOGChatViewController.h"
+#import "CRToast.h"
 
 static NSString *MOGRoomCellIdentifier = @"MOGRoomCell";
 static NSString *MOGSegueIdentifierOpenRoom = @"MOGSegueIdentifierOpenRoom";
@@ -82,6 +83,29 @@ static NSString *MOGSegueIdentifierOpenRoom = @"MOGSegueIdentifierOpenRoom";
     cell.textLabel.text = room.name;
 
     return cell;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [self.sessionService.currentUser isAdmin];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        MOGRoom *room = self.rooms[indexPath.row];
+        [self.roomService deleteRoom:room completion:^{
+            NSMutableArray *mutableRooms = [self.rooms mutableCopy];
+            [mutableRooms removeObject:room];
+            self.rooms = [NSArray arrayWithArray:mutableRooms];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            [CRToastManager showNotificationWithOptions:@{kCRToastTextKey: @"Successfully deleted room", kCRToastBackgroundColorKey: [UIColor colorWithRed:0.168 green:0.838 blue:0.285 alpha:1.000]} completionBlock:nil];
+        } failure:^(NSError *error) {
+            NSLog(@"Error deleting rooms: %@", error);
+            [CRToastManager showNotificationWithMessage:@"Uh oh, couldn't delete that room!" completionBlock:nil];
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        }];
+    }
 }
 
 #pragma mark -
