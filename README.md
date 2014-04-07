@@ -13,3 +13,5 @@ An iOS client for [Mogo](https://github.com/HashNuke/mogo-chat).
 <img src="https://raw.githubusercontent.com/jurre/Mogo-iOS/master/screenshots/room-overview.png" alt="room overview" width=300 />
 
 <img src="https://raw.githubusercontent.com/jurre/Mogo-iOS/master/screenshots/chat.png" alt="chat" width=300 />
+
+<img src="https://raw.githubusercontent.com/jurre/Mogo-iOS/master/screenshots/add-room.png" alt="chat" width=300 />
