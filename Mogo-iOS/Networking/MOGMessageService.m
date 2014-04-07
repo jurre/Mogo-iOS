@@ -10,6 +10,12 @@
 #import "TTTDateTransformers.h"
 #import "MOGSessionService.h"
 
+@interface MOGMessageService ()
+
+@property (nonatomic, strong) NSArray *sentMessages;
+
+@end
+
 @implementation MOGMessageService
 
 + (instancetype)sharedService {
@@ -20,6 +26,10 @@
 	    _sharedService.apiClient = [MOGAPIClient sharedClient];
 	});
 	return _sharedService;
+}
+
+- (NSArray *)messages {
+    return [_messages arrayByAddingObjectsFromArray:self.sentMessages];
 }
 
 - (NSString *)endpointForRoom:(MOGRoom *)room {
@@ -47,7 +57,14 @@
     [self.apiClient GET:[self endpointForRoom:room]
              parameters:params
                 success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                    completion([self messagesFromResponse:responseObject]);
+                    self.sentMessages = @[];
+                    NSArray *messages = [self messagesFromResponse:responseObject];
+                    if (after) {
+                        self.messages = [self.messages arrayByAddingObjectsFromArray:messages];
+                    } else {
+                        self.messages = messages;
+                    }
+                    completion(self.messages);
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     failure(error);
                 }];
@@ -66,17 +83,18 @@
 }
 
 - (MOGMessage *)messageFromResponse:(NSDictionary *)responseObject {
-    NSDate *date = (NSDate *)[[NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName] transformedValue:responseObject[@"created_at"]];
+    NSDate *date = [[NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName] transformedValue:responseObject[@"created_at"]];
     MOGMessage *message = [[MOGMessage alloc] initWithText:responseObject[@"body"]
-                              sender:responseObject[@"user"][@"name"]
-                                date:date];
-    message.senderId = [responseObject[@"user_id"]integerValue];
+                                                    sender:responseObject[@"user"][@"name"]
+                                                      date:date];
+    message.messageId = [responseObject[@"id"] integerValue];
+    message.senderId = [responseObject[@"user_id"] integerValue];
     return message;
 }
 
 - (void)postMessage:(MOGMessage *)message
              toRoom:(MOGRoom *)room
-         completion:(void (^)(MOGMessage *message))completion
+         completion:(void (^)(NSArray *messages))completion
             failure:(void (^)(NSError *error))failure {
     NSDictionary *serializedMessage = [self serializedMessage:message forRoom:room];
     [self.apiClient POST:[self messagesEndpoint]
@@ -84,7 +102,8 @@
                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
                      MOGMessage *message = [self messageFromResponse:responseObject[@"message"]];
                      message.sender = [MOGSessionService sharedService].currentUser.name;
-                     completion(message);
+                     self.sentMessages = [self.sentMessages arrayByAddingObject:message];
+                     completion(self.messages);
                  }
                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                      failure(error);

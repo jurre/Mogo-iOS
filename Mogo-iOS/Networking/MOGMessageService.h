@@ -15,13 +15,20 @@ static NSString *const MOGApiEndpointMessages = @"messages/";
 
 @interface MOGMessageService : MOGBaseService
 
+@property (nonatomic, strong) NSArray *messages;
+
 - (void)messagesForRoom:(MOGRoom *)room
+             completion:(void (^)(NSArray *result))completion
+                failure:(void (^)(NSError *error))failure;
+
+- (void)messagesForRoom:(MOGRoom *)room
+                  after:(NSInteger)after
              completion:(void (^)(NSArray *result))completion
                 failure:(void (^)(NSError *error))failure;
 
 - (void)postMessage:(MOGMessage *)message
              toRoom:(MOGRoom *)room
-         completion:(void (^)(MOGMessage *message))completion
+         completion:(void (^)(NSArray *messages))completion
             failure:(void (^)(NSError *error))failure;
 
 @end

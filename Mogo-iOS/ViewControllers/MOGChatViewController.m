@@ -93,8 +93,8 @@
 
     [self.messageService postMessage:message
                               toRoom:self.room
-                          completion:^(MOGMessage *message) {
-                              self.messages = [self.messages arrayByAddingObject:message];
+                          completion:^(NSArray *messages) {
+                              self.messages = messages;
                           } failure:^(NSError *error) {
                               NSLog(@"Error posting message: %@", error);
                           }];
@@ -125,7 +125,7 @@
 #pragma mark - MOGMessagePollerDelegate
 
 - (void)pollerDidFetchNewMessages:(NSArray *)newMessages {
-    self.messages = [self.messages arrayByAddingObjectsFromArray:newMessages];
+    self.messages = newMessages;
 }
 
 @end
