@@ -7,7 +7,6 @@
 //
 
 #import "MOGMessageService.h"
-#import "TTTDateTransformers.h"
 #import "MOGSessionService.h"
 
 @interface MOGMessageService ()
@@ -83,7 +82,7 @@
 }
 
 - (MOGMessage *)messageFromResponse:(NSDictionary *)responseObject {
-    NSDate *date = [[NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName] transformedValue:responseObject[@"created_at"]];
+    NSDate *date = [self dateFromISO8601String:responseObject[@"created_at"]];
     MOGMessage *message = [[MOGMessage alloc] initWithText:responseObject[@"body"]
                                                     sender:responseObject[@"user"][@"name"]
                                                       date:date];
@@ -120,6 +119,21 @@
                      @"type": @"text"
                 }
              };
+}
+
+- (NSDate *)dateFromISO8601String:(NSString *)dateString {
+
+    NSDate *dateFromString = [[self dateFormatter] dateFromString:dateString];
+    return dateFromString;
+}
+
+- (NSDateFormatter *)dateFormatter {
+    static NSDateFormatter *dateFormatter;
+    if (!dateFormatter) {
+        dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"];
+    }
+    return dateFormatter;
 }
 
 @end
